@@ -23,3 +23,19 @@ a {
 .disabled {
   pointer-events: none;
 }
+
+.easy {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.normal {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.hard {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.mycenter {
+  transform: translate(-50%, -50%);
+}
