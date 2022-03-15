@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import CountdownBar from './CountdownBar'
 import GameStatus from './GameStatus'
 
 export default function Board() {
@@ -579,6 +580,10 @@ export default function Board() {
 
   const grids = [fiveXFive, sixXSix, sevenXSeven]
 
+  const [percentage, setPercentage] = useState(100)
+
+  const progressTimer = useRef()
+
   const setGrids = [
     () => setFiveXFive(),
     () => setSixXSix(),
@@ -590,13 +595,12 @@ export default function Board() {
   // sets click status and color on user click
   const handleClick = (id) => {
     const newArr = grids[gridIndex].map((item, index) => {
-      if (item.id === id && !userAnswer.includes(id) ) {
+      if (item.id === id && !userAnswer.includes(id)) {
         addAnswer(id)
         return { ...item, clicked: !item.clicked, background: 'bg-black' }
       } else return item
     })
     setFiveXFive(newArr)
-    
   }
 
   const clearBoard = () => {
@@ -611,7 +615,7 @@ export default function Board() {
       ? setSevenXSeven(newArr)
       : null
 
-      setGameOver(false)
+    setGameOver(false)
   }
 
   // resets board to unclicked and base color
@@ -627,13 +631,14 @@ export default function Board() {
       ? setSevenXSeven(newArr)
       : null
 
-      setAnswerArray([])
-      setUserAnswer([])
-      setWrongAnswers([])
-      setCorrectAnswers([])
-      setGameOver(false)
-      setGameWon(false)
-      setGameStart(false)
+    setAnswerArray([])
+    setUserAnswer([])
+    setWrongAnswers([])
+    setCorrectAnswers([])
+    setPercentage(0)
+    setGameOver(false)
+    setGameWon(false)
+    setGameStart(false)
   }
 
   // creates array of 10 random numbers between 0-24
@@ -650,7 +655,7 @@ export default function Board() {
       result.push(arr[random])
       arr[random] = arr[25 - i]
     }
-    
+
     return result
   }
 
@@ -662,12 +667,12 @@ export default function Board() {
 
     let result = []
 
-    for (let i = 1; i <= 16; i++) {
+    for (let i = 1; i <= 15; i++) {
       const random = Math.floor(Math.random() * (36 - i))
       result.push(arr[random])
       arr[random] = arr[36 - i]
     }
-    
+
     return result
   }
 
@@ -679,19 +684,21 @@ export default function Board() {
 
     let result = []
 
-    for (let i = 1; i <= 26; i++) {
+    for (let i = 1; i <= 20; i++) {
       const random = Math.floor(Math.random() * (49 - i))
       result.push(arr[random])
       arr[random] = arr[49 - i]
     }
-    
+
     return result
   }
 
   //uses random array to highlight correct squares
   const setupBoard = () => {
+    setGameOver(false)
     setGameStart(true)
-    
+    setPercentage(0)
+
     let randoms =
       gridIndex === 0
         ? setRandomArray()
@@ -716,7 +723,7 @@ export default function Board() {
       ? setSevenXSeven(newArr)
       : null
 
-    console.log()
+    
   }
 
   const addAnswer = (id) => {
@@ -726,7 +733,7 @@ export default function Board() {
   const checkAnswer = (id) => {
     if (answerArray.includes(id) && !userAnswer.includes(id)) {
       //correct stuff
-      setCorrectAnswers((prevArray) => [...prevArray, id]) 
+      setCorrectAnswers((prevArray) => [...prevArray, id])
 
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
@@ -734,18 +741,16 @@ export default function Board() {
         } else return item
       })
       gridIndex === 0
-      ? setFiveXFive(newArr)
-      : gridIndex === 1
-      ? setSixXSix(newArr)
-      : gridIndex === 2
-      ? setSevenXSeven(newArr)
-      : null
+        ? setFiveXFive(newArr)
+        : gridIndex === 1
+        ? setSixXSix(newArr)
+        : gridIndex === 2
+        ? setSevenXSeven(newArr)
+        : null
 
-      
       console.log(correctAnswers)
-      
-      
-      if (correctAnswers.length === answerArray.length -1) {
+
+      if (correctAnswers.length === answerArray.length - 1) {
         setGameWon(true)
       }
 
@@ -760,12 +765,12 @@ export default function Board() {
         } else return item
       })
       gridIndex === 0
-      ? setFiveXFive(newArr)
-      : gridIndex === 1
-      ? setSixXSix(newArr)
-      : gridIndex === 2
-      ? setSevenXSeven(newArr)
-      : null
+        ? setFiveXFive(newArr)
+        : gridIndex === 1
+        ? setSixXSix(newArr)
+        : gridIndex === 2
+        ? setSevenXSeven(newArr)
+        : null
 
       setWrongAnswers((prevArray) => [...prevArray, id])
       if (wrongAnswers.length === 2) {
@@ -779,35 +784,60 @@ export default function Board() {
   //on click of start, show board for 5 seconds then clear
   useEffect(() => {
     setPreGame(true)
+    
     const timer = setTimeout(() => {
       if (gameStart) {
         clearBoard()
         setPreGame(false)
       }
     }, 5000)
-
+    
     return () => clearTimeout(timer)
   }, [gameStart])
+
+  //timer for start of game
+  useEffect(() => {
+    if (!preGame && gameStart) {
+      const timer = setTimeout(() => {
+        setGameOver(true)
+      }, 10000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [preGame])
+
+  //check for progress bar full
+  useEffect(() => {
+    if (percentage >= 105) {
+      clearInterval(progressTimer.current)
+    }
+  }, [percentage])
+
+  //increases progress bar
+  useEffect(() => {
+
+    if (!preGame) {
+      progressTimer.current = setInterval(() => {
+      setPercentage((percentage) => percentage + 5.25)
+    }, 500)
+
+    return () => clearInterval(progressTimer.current)
+    }
+    
+
+
+  }, [preGame])
 
   return (
     <div>
       <header className="bg-black-800 ">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-          <div className="flex mb-4 gap-2 justify-center">
+          <h1 className="text-3xl font-bold text-white">Memory Game</h1>
+          <div className="flex mb-4 gap-2 justify-center mt-8">
             <button
               type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={() => setGridIndex(0)}
-            >
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
-              Easy
-            </button>
-
-            <button
-              type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={() => setGridIndex(1)}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
               Normal
@@ -816,16 +846,25 @@ export default function Board() {
             <button
               type="submit"
               className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={() => setGridIndex(2)}
+              onClick={() => setGridIndex(1)}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
               Hard
+            </button>
+
+            <button
+              type="submit"
+              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={() => setGridIndex(2)}
+            >
+              <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
+              Very Hard
             </button>
           </div>
           <div className="flex justify-center gap-2">
             <button
               type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-700 hover:bg-red-800 focus:outline-none "
               onClick={resetBoard}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
@@ -834,7 +873,7 @@ export default function Board() {
 
             <button
               type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-lime-700 hover:bg-lime-800 focus:outline-none "
               onClick={setupBoard}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
@@ -843,8 +882,11 @@ export default function Board() {
           </div>
         </div>
       </header>
-      <main className='relative'>
-        <div className="w-1/3 mx-auto py-6 aspect-square h-1/3">
+
+      <CountdownBar percentage={percentage} />
+
+      <main className="relative">
+        <div className="sm:w-1/3 sm:h-1/3 mx-auto py-6 aspect-square  w-full h-1/2">
           {/* Replace with your content */}
           <div
             className={`p-2 border-4 border-solid border-gray-200 rounded-lg h-full grid gap-2 ${
@@ -880,10 +922,11 @@ export default function Board() {
           </div>
           {/* /End replace */}
         </div>
-        <GameStatus  
+        <GameStatus
           gameOver={gameOver}
           setGameOver={setGameOver}
           gameWon={gameWon}
+          preGame={preGame}
         />
       </main>
     </div>

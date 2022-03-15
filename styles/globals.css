@@ -39,3 +39,15 @@ a {
 .mycenter {
   transform: translate(-50%, -50%);
 }
+
+.progressTransition {
+  max-width: 100% !important;
+  transition: width 0.5s linear;
+}
+
+.preGameTransition {
+  
+  justify-self: center;
+  align-self: center;
+  transition: width 5s linear !important;
+}
