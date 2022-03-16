@@ -43,6 +43,7 @@ a {
 .progressTransition {
   max-width: 100% !important;
   transition: width 0.5s linear;
+  
 }
 
 .preGameTransition {

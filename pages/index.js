@@ -11,9 +11,9 @@ export default function Home() {
 
   return (
     <div>
-      <Header 
+      <div className='w-full mx-auto px-2 sm:px-6 lg:px-8 h-16 bg-gray-800'>
         
-      />
+      </div>
       <Board
         
       />

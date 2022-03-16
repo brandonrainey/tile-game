@@ -883,7 +883,10 @@ export default function Board() {
         </div>
       </header>
 
-      <CountdownBar percentage={percentage} />
+      <CountdownBar 
+        preGame={preGame}
+        percentage={percentage} 
+      />
 
       <main className="relative">
         <div className="sm:w-1/3 sm:h-1/3 mx-auto py-6 aspect-square  w-full h-1/2">
