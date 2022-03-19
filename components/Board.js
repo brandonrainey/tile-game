@@ -600,7 +600,13 @@ export default function Board() {
         return { ...item, clicked: !item.clicked, background: 'bg-black' }
       } else return item
     })
-    setFiveXFive(newArr)
+    gridIndex === 0
+        ? setFiveXFive(newArr)
+        : gridIndex === 1
+        ? setSixXSix(newArr)
+        : gridIndex === 2
+        ? setSevenXSeven(newArr)
+        : null
   }
 
   const clearBoard = () => {
@@ -635,7 +641,8 @@ export default function Board() {
     setUserAnswer([])
     setWrongAnswers([])
     setCorrectAnswers([])
-    setPercentage(0)
+    setPercentage(100)
+    setPreGame(false)
     setGameOver(false)
     setGameWon(false)
     setGameStart(false)
@@ -722,8 +729,6 @@ export default function Board() {
       : gridIndex === 2
       ? setSevenXSeven(newArr)
       : null
-
-    
   }
 
   const addAnswer = (id) => {
@@ -754,11 +759,8 @@ export default function Board() {
         setGameWon(true)
       }
 
-      console.log('correct')
       return
     } else if (!userAnswer.includes(id)) {
-      console.log('wrong')
-
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
           return { ...item, background: 'bg-red-600' }
@@ -784,14 +786,14 @@ export default function Board() {
   //on click of start, show board for 5 seconds then clear
   useEffect(() => {
     setPreGame(true)
-    
+
     const timer = setTimeout(() => {
       if (gameStart) {
         clearBoard()
         setPreGame(false)
       }
     }, 5000)
-    
+
     return () => clearTimeout(timer)
   }, [gameStart])
 
@@ -808,6 +810,10 @@ export default function Board() {
 
   //check for progress bar full
   useEffect(() => {
+    if (gameWon || gameOver) {
+      clearInterval(progressTimer.current)
+    }
+
     if (percentage >= 105) {
       clearInterval(progressTimer.current)
     }
@@ -815,24 +821,41 @@ export default function Board() {
 
   //increases progress bar
   useEffect(() => {
-
     if (!preGame) {
       progressTimer.current = setInterval(() => {
-      setPercentage((percentage) => percentage + 5.25)
-    }, 500)
+        setPercentage((percentage) => percentage + 5.25)
+      }, 500)
 
-    return () => clearInterval(progressTimer.current)
+      return () => clearInterval(progressTimer.current)
     }
-    
-
-
   }, [preGame])
+
+  //shows correct tiles missed on a game over
+  useEffect(() => {
+    if (gameOver) {
+      const newArr = grids[gridIndex].map((item, index) => {
+        if (
+          item.background != 'bg-lime-600' &&
+          item.background != 'bg-red-600' &&
+          answerArray.includes(item.id)
+        ) {
+          return { ...item, clicked: !item.clicked, background: 'bg-black' }
+        } else return item
+      })
+      gridIndex === 0
+        ? setFiveXFive(newArr)
+        : gridIndex === 1
+        ? setSixXSix(newArr)
+        : gridIndex === 2
+        ? setSevenXSeven(newArr)
+        : null
+    }
+  }, [gameOver])
 
   return (
     <div>
       <header className="bg-black-800 ">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-white">Memory Game</h1>
           <div className="flex mb-4 gap-2 justify-center mt-8">
             <button
               type="submit"
@@ -883,14 +906,11 @@ export default function Board() {
         </div>
       </header>
 
-      <CountdownBar 
-        preGame={preGame}
-        percentage={percentage} 
-      />
+      <CountdownBar preGame={preGame} percentage={percentage} />
 
       <main className="relative">
         <div className="sm:w-1/3 sm:h-1/3 mx-auto py-6 aspect-square  w-full h-1/2">
-          {/* Replace with your content */}
+          
           <div
             className={`p-2 border-4 border-solid border-gray-200 rounded-lg h-full grid gap-2 ${
               gridIndex === 0
@@ -923,7 +943,7 @@ export default function Board() {
               ></div>
             ))}
           </div>
-          {/* /End replace */}
+          
         </div>
         <GameStatus
           gameOver={gameOver}
