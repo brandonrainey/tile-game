@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div>
       <div className="w-full mx-auto px-2 sm:px-6 lg:px-8 h-16 bg-gray-800 flex">
-        <h1 className="sm:text-3xl text-2xl font-bold text-white pt-2">Memory Game</h1>
+        <h1 className="sm:text-3xl text-2xl font-bold text-white pt-2 headerFont">Memory Game</h1>
         <div className="flex ml-auto text-white font-bold spacing-2 sm:pr-20 pr-4">
           <p className="flex flex-col relative peer h-full justify-center items-center self-center">
             How to play
