@@ -55,6 +55,10 @@ a {
   transition: width 5s linear !important;
 }
 
+.resetTransition {
+  transition: none;
+}
+
 .headerFont {
   font-family: Signika, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;

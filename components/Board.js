@@ -584,6 +584,8 @@ export default function Board() {
 
   const progressTimer = useRef()
 
+  const [reseting, setReseting] = useState(false)
+
   const setGrids = [
     () => setFiveXFive(),
     () => setSixXSix(),
@@ -601,12 +603,12 @@ export default function Board() {
       } else return item
     })
     gridIndex === 0
-        ? setFiveXFive(newArr)
-        : gridIndex === 1
-        ? setSixXSix(newArr)
-        : gridIndex === 2
-        ? setSevenXSeven(newArr)
-        : null
+      ? setFiveXFive(newArr)
+      : gridIndex === 1
+      ? setSixXSix(newArr)
+      : gridIndex === 2
+      ? setSevenXSeven(newArr)
+      : null
   }
 
   const clearBoard = () => {
@@ -626,6 +628,8 @@ export default function Board() {
 
   // resets board to unclicked and base color
   const resetBoard = () => {
+    setReseting(true)
+
     const newArr = grids[gridIndex].map((item, index) => {
       return { ...item, clicked: false, background: 'bg-white' }
     })
@@ -642,10 +646,13 @@ export default function Board() {
     setWrongAnswers([])
     setCorrectAnswers([])
     setPercentage(100)
-    setPreGame(false)
+    setPreGame(true)
     setGameOver(false)
     setGameWon(false)
     setGameStart(false)
+
+    
+    console.log(progressTimer.current)
   }
 
   // creates array of 10 random numbers between 0-24
@@ -702,6 +709,7 @@ export default function Board() {
 
   //uses random array to highlight correct squares
   const setupBoard = () => {
+    setReseting(false)
     setGameOver(false)
     setGameStart(true)
     setPercentage(0)
@@ -907,11 +915,15 @@ export default function Board() {
         </div>
       </header>
 
-      <CountdownBar preGame={preGame} percentage={percentage} />
+      <CountdownBar
+        preGame={preGame}
+        percentage={percentage}
+        reseting={reseting}
+        setReseting={setReseting}
+      />
 
       <main className="relative">
         <div className="sm:w-1/3 sm:h-1/3 mx-auto py-6 aspect-square  w-full h-1/2">
-          
           <div
             className={`p-2 border-4 border-solid border-gray-200 rounded-lg h-full grid gap-2 ${
               gridIndex === 0
@@ -944,7 +956,6 @@ export default function Board() {
               ></div>
             ))}
           </div>
-          
         </div>
         <GameStatus
           gameOver={gameOver}
