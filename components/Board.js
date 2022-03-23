@@ -750,7 +750,7 @@ export default function Board() {
 
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
-          return { ...item, background: 'bg-lime-600' }
+          return { ...item, background: 'transition bg-lime-600 ease 150ms' }
         } else return item
       })
       gridIndex === 0
@@ -771,7 +771,7 @@ export default function Board() {
     } else if (!userAnswer.includes(id)) {
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
-          return { ...item, background: 'bg-red-600' }
+          return { ...item, background: 'transition bg-red-600 ease 150ms' }
         } else return item
       })
       gridIndex === 0
@@ -843,8 +843,8 @@ export default function Board() {
     if (gameOver) {
       const newArr = grids[gridIndex].map((item, index) => {
         if (
-          item.background != 'bg-lime-600' &&
-          item.background != 'bg-red-600' &&
+          item.background != 'transition bg-lime-600 ease 150ms' &&
+          item.background != 'transition bg-red-600 ease 150ms' &&
           answerArray.includes(item.id)
         ) {
           return { ...item, clicked: !item.clicked, background: 'bg-black' }
@@ -948,7 +948,7 @@ export default function Board() {
                 key={item.id}
                 className={`${item.background} ${
                   preGame || gameOver || gameWon ? 'disabled' : null
-                } h-full `}
+                } h-full tile}`}
                 onClick={() => {
                   handleClick(item.id)
                   checkAnswer(item.id)
