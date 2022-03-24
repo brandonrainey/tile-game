@@ -750,7 +750,7 @@ export default function Board() {
 
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
-          return { ...item, background: 'transition bg-lime-600 ease 150ms' }
+          return { ...item, background: 'transition bg-lime-600 ease-in-out 150ms' }
         } else return item
       })
       gridIndex === 0
@@ -771,7 +771,7 @@ export default function Board() {
     } else if (!userAnswer.includes(id)) {
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
-          return { ...item, background: 'transition bg-red-600 ease 150ms' }
+          return { ...item, background: 'transition bg-red-600 ease-in-out 150ms' }
         } else return item
       })
       gridIndex === 0
@@ -843,8 +843,8 @@ export default function Board() {
     if (gameOver) {
       const newArr = grids[gridIndex].map((item, index) => {
         if (
-          item.background != 'transition bg-lime-600 ease 150ms' &&
-          item.background != 'transition bg-red-600 ease 150ms' &&
+          item.background != 'transition bg-lime-600 ease-in-out 150ms' &&
+          item.background != 'transition bg-red-600 ease-in-out 150ms' &&
           answerArray.includes(item.id)
         ) {
           return { ...item, clicked: !item.clicked, background: 'bg-black' }
@@ -867,7 +867,7 @@ export default function Board() {
           <div className="flex mb-4 gap-2 justify-center sm:mt-8 mt-14">
             <button
               type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${gridIndex == 0 ? 'outline outline-2 outline-white ' : null}`}
               onClick={() => setGridIndex(0)}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
@@ -876,7 +876,7 @@ export default function Board() {
 
             <button
               type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${gridIndex == 1 ? 'outline outline-2 outline-white ' : null}`}
               onClick={() => setGridIndex(1)}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
@@ -885,7 +885,7 @@ export default function Board() {
 
             <button
               type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${gridIndex == 2 ? 'outline outline-2 outline-white ' : null}`}
               onClick={() => setGridIndex(2)}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
