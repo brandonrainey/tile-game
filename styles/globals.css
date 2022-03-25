@@ -22,9 +22,15 @@ a {
   box-sizing: border-box;
 }
 
+
+
+
 .disabled {
   pointer-events: none;
+
 }
+
+
 
 .easy {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -64,4 +70,6 @@ a {
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.tile:hover {
 
+}

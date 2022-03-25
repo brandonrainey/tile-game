@@ -630,16 +630,25 @@ export default function Board() {
   const resetBoard = () => {
     setReseting(true)
 
-    const newArr = grids[gridIndex].map((item, index) => {
+    const newArr = grids[0].map((item, index) => {
       return { ...item, clicked: false, background: 'bg-white' }
     })
-    gridIndex === 0
-      ? setFiveXFive(newArr)
-      : gridIndex === 1
-      ? setSixXSix(newArr)
-      : gridIndex === 2
-      ? setSevenXSeven(newArr)
-      : null
+
+    const newArr2 = grids[1].map((item, index) => {
+      return { ...item, clicked: false, background: 'bg-white' }
+    })
+
+    const newArr3 = grids[2].map((item, index) => {
+      return { ...item, clicked: false, background: 'bg-white' }
+    })
+
+    
+      setFiveXFive(newArr)
+      
+      setSixXSix(newArr2)
+      
+      setSevenXSeven(newArr3)
+      
 
     setAnswerArray([])
     setUserAnswer([])
@@ -864,11 +873,12 @@ export default function Board() {
     <div>
       <header className="bg-black-800 ">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <div className="flex mb-4 gap-2 justify-center sm:mt-8 mt-14">
+          <div className="flex mb-4 gap-8 justify-center sm:mt-8 mt-14">
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${gridIndex == 0 ? 'outline outline-2 outline-white ' : null}`}
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${gridIndex == 0 ? 'shadow-md shadow-white' : null}`}
               onClick={() => setGridIndex(0)}
+              disabled={gameStart ? true : false}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
               Normal
@@ -876,8 +886,9 @@ export default function Board() {
 
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${gridIndex == 1 ? 'outline outline-2 outline-white ' : null}`}
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${gridIndex == 1 ? 'shadow-md shadow-white' : null}`}
               onClick={() => setGridIndex(1)}
+              disabled={gameStart ? true : false}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
               Hard
@@ -885,14 +896,15 @@ export default function Board() {
 
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${gridIndex == 2 ? 'outline outline-2 outline-white ' : null}`}
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${gridIndex == 2 ? 'shadow-md shadow-white' : null}`}
               onClick={() => setGridIndex(2)}
+              disabled={gameStart ? true : false}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
               Very Hard
             </button>
           </div>
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-4">
             <button
               type="submit"
               className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-700 hover:bg-red-800 focus:outline-none "
@@ -944,16 +956,20 @@ export default function Board() {
             }`}
           >
             {grids[gridIndex].map((item, index) => (
-              <div
-                key={item.id}
-                className={`${item.background} ${
-                  preGame || gameOver || gameWon ? 'disabled' : null
-                } h-full tile}`}
-                onClick={() => {
-                  handleClick(item.id)
-                  checkAnswer(item.id)
-                }}
-              ></div>
+
+              
+                <div
+                  key={item.id}
+                  className={`${item.background} ${
+                    preGame || gameOver || gameWon ? 'disabled' : null
+                  } h-full tile}`}
+                  onClick={() => {
+                    handleClick(item.id)
+                    checkAnswer(item.id)
+                  }}
+                ></div>
+
+                
             ))}
           </div>
         </div>
