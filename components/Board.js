@@ -961,6 +961,7 @@ export default function Board() {
             }`}
           >
             {grids[gridIndex].map((item, index) => (
+
               <li
                 key={item.id}
                 className={`${item.background} ${
@@ -970,7 +971,9 @@ export default function Board() {
                   handleClick(item.id)
                   checkAnswer(item.id)
                 }}
-              ><span className={`tile`}></span></li>
+              ></li>
+
+
             ))}
           </ul>
         </div>
