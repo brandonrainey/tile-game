@@ -657,8 +657,6 @@ export default function Board() {
     setGameOver(false)
     setGameWon(false)
     setGameStart(false)
-
-    console.log(progressTimer.current)
   }
 
   // creates array of 10 random numbers between 0-24
@@ -770,8 +768,6 @@ export default function Board() {
         ? setSevenXSeven(newArr)
         : null
 
-      console.log(correctAnswers)
-
       if (correctAnswers.length === answerArray.length - 1) {
         setGameWon(true)
       }
@@ -843,8 +839,8 @@ export default function Board() {
   useEffect(() => {
     if (!preGame) {
       progressTimer.current = setInterval(() => {
-        setPercentage((percentage) => percentage + 5.25)
-      }, 500)
+        setPercentage((percentage) => percentage + 2.625)
+      }, 250)
 
       return () => clearInterval(progressTimer.current)
     }
@@ -880,7 +876,7 @@ export default function Board() {
             <button
               type="submit"
               className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
-                gridIndex == 0 ? 'shadow-md shadow-white' : null
+                gridIndex == 0 ? 'shadow-md shadow-teal-300' : null
               }`}
               onClick={() => setGridIndex(0)}
               disabled={gameStart ? true : false}
@@ -892,7 +888,7 @@ export default function Board() {
             <button
               type="submit"
               className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
-                gridIndex == 1 ? 'shadow-md shadow-white' : null
+                gridIndex == 1 ? 'shadow-md shadow-teal-300' : null
               }`}
               onClick={() => setGridIndex(1)}
               disabled={gameStart ? true : false}
@@ -904,7 +900,7 @@ export default function Board() {
             <button
               type="submit"
               className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
-                gridIndex == 2 ? 'shadow-md shadow-white' : null
+                gridIndex == 2 ? 'shadow-md shadow-teal-300' : null
               }`}
               onClick={() => setGridIndex(2)}
               disabled={gameStart ? true : false}
@@ -945,7 +941,7 @@ export default function Board() {
 
       <main className="relative">
         <div className="md:w-1/3 md:h-1/3   mx-auto py-6 aspect-square  w-full h-1/2 -mt-6">
-          <div
+          <ul
             className={`p-2 border-4 border-solid border-gray-200 rounded-lg h-full grid gap-2 ${
               gridIndex === 0
                 ? 'easy'
@@ -965,7 +961,7 @@ export default function Board() {
             }`}
           >
             {grids[gridIndex].map((item, index) => (
-              <div
+              <li
                 key={item.id}
                 className={`${item.background} ${
                   preGame || gameOver || gameWon ? 'disabled' : null
@@ -974,9 +970,9 @@ export default function Board() {
                   handleClick(item.id)
                   checkAnswer(item.id)
                 }}
-              ></div>
+              ></li>
             ))}
-          </div>
+          </ul>
         </div>
         <GameStatus
           gameOver={gameOver}
