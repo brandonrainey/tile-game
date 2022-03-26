@@ -28,6 +28,7 @@ a {
 
 .disabled {
   pointer-events: none;
+  
 }
 
 .easy {
@@ -60,6 +61,7 @@ a {
 .resetTransition {
   transition: none;
 }
+
 
 
 
