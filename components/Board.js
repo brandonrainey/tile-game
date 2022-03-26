@@ -944,7 +944,7 @@ export default function Board() {
       />
 
       <main className="relative">
-        <div className="sm:w-1/3 sm:h-1/3 mx-auto py-6 aspect-square  w-full h-1/2">
+        <div className="md:w-1/3 md:h-1/3   mx-auto py-6 aspect-square  w-full h-1/2 -mt-6">
           <div
             className={`p-2 border-4 border-solid border-gray-200 rounded-lg h-full grid gap-2 ${
               gridIndex === 0
