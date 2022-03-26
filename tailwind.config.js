@@ -12,6 +12,9 @@ module.exports = {
       },
       spacing: {
         'mycenter': '-50%, -50%'
+      },
+      fontFamily: {
+        'header': ['Patua One', 'sans-serif']
       }
     },
   },

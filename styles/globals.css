@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Signika&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
 
 html,
 body {
@@ -12,6 +11,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background: rgb(31, 32, 39);
+}
+
+h1 {
+  font-family: Patua One;
 }
 
 a {
@@ -58,9 +61,5 @@ a {
   transition: none;
 }
 
-.headerFont {
-  font-family: 'Dela Gothic One', cursive;
-}
 
-.tile:hover {
-}
+
