@@ -8,7 +8,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family:  -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background: rgb(31, 32, 39);
 }
@@ -22,15 +22,9 @@ a {
   box-sizing: border-box;
 }
 
-
-
-
 .disabled {
   pointer-events: none;
-
 }
-
-
 
 .easy {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -51,11 +45,9 @@ a {
 .progressTransition {
   max-width: 100% !important;
   transition: width 0.5s linear;
-  
 }
 
 .preGameTransition {
-  
   justify-self: center;
   align-self: center;
   transition: width 5s linear !important;
@@ -66,10 +58,9 @@ a {
 }
 
 .headerFont {
-  font-family: Signika, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Signika, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 .tile:hover {
-
 }

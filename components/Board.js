@@ -642,13 +642,11 @@ export default function Board() {
       return { ...item, clicked: false, background: 'bg-white' }
     })
 
-    
-      setFiveXFive(newArr)
-      
-      setSixXSix(newArr2)
-      
-      setSevenXSeven(newArr3)
-      
+    setFiveXFive(newArr)
+
+    setSixXSix(newArr2)
+
+    setSevenXSeven(newArr3)
 
     setAnswerArray([])
     setUserAnswer([])
@@ -660,7 +658,6 @@ export default function Board() {
     setGameWon(false)
     setGameStart(false)
 
-    
     console.log(progressTimer.current)
   }
 
@@ -759,7 +756,10 @@ export default function Board() {
 
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
-          return { ...item, background: 'transition bg-lime-600 ease-in-out 150ms' }
+          return {
+            ...item,
+            background: 'transition bg-lime-600 ease-in-out 150ms',
+          }
         } else return item
       })
       gridIndex === 0
@@ -780,7 +780,10 @@ export default function Board() {
     } else if (!userAnswer.includes(id)) {
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
-          return { ...item, background: 'transition bg-red-600 ease-in-out 150ms' }
+          return {
+            ...item,
+            background: 'transition bg-red-600 ease-in-out 150ms',
+          }
         } else return item
       })
       gridIndex === 0
@@ -873,10 +876,12 @@ export default function Board() {
     <div>
       <header className="bg-black-800 ">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <div className="flex mb-4 gap-8 justify-center sm:mt-8 mt-14">
+          <div className="flex mb-4 gap-8 justify-center sm:mt-8 mt-16">
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${gridIndex == 0 ? 'shadow-md shadow-white' : null}`}
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
+                gridIndex == 0 ? 'shadow-md shadow-white' : null
+              }`}
               onClick={() => setGridIndex(0)}
               disabled={gameStart ? true : false}
             >
@@ -886,7 +891,9 @@ export default function Board() {
 
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${gridIndex == 1 ? 'shadow-md shadow-white' : null}`}
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
+                gridIndex == 1 ? 'shadow-md shadow-white' : null
+              }`}
               onClick={() => setGridIndex(1)}
               disabled={gameStart ? true : false}
             >
@@ -896,7 +903,9 @@ export default function Board() {
 
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${gridIndex == 2 ? 'shadow-md shadow-white' : null}`}
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
+                gridIndex == 2 ? 'shadow-md shadow-white' : null
+              }`}
               onClick={() => setGridIndex(2)}
               disabled={gameStart ? true : false}
             >
@@ -956,20 +965,16 @@ export default function Board() {
             }`}
           >
             {grids[gridIndex].map((item, index) => (
-
-              
-                <div
-                  key={item.id}
-                  className={`${item.background} ${
-                    preGame || gameOver || gameWon ? 'disabled' : null
-                  } h-full tile}`}
-                  onClick={() => {
-                    handleClick(item.id)
-                    checkAnswer(item.id)
-                  }}
-                ></div>
-
-                
+              <div
+                key={item.id}
+                className={`${item.background} ${
+                  preGame || gameOver || gameWon ? 'disabled' : null
+                } h-full tile}`}
+                onClick={() => {
+                  handleClick(item.id)
+                  checkAnswer(item.id)
+                }}
+              ></div>
             ))}
           </div>
         </div>
