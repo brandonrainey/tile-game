@@ -10,7 +10,7 @@ export default function Home() {
         <title>Tile Memory Game</title>
       </Head>
       <div className="w-full mx-auto px-2 sm:px-6 lg:px-8 h-16 bg-gray-800 flex">
-        <h1 className="sm:text-3xl text-3xl font-bold text-white pt-3 headerFont tracking-wider pl-4 font-header">
+        <h1 className="sm:text-3xl text-3xl font-bold text-white pt-3 headerFont sm:tracking-wider tracking-wide pl-4 font-header">
           Memory Game
         </h1>
         <div className="flex ml-auto text-white font-bold spacing-2 sm:pr-32 pr-4  ">
