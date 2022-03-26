@@ -10,7 +10,7 @@ export default function Home() {
         <h1 className="sm:text-3xl text-2xl font-bold text-white pt-2 headerFont tracking-wide">
           Memory Game
         </h1>
-        <div className="flex ml-auto text-white font-bold spacing-2 sm:pr-20 pr-4">
+        <div className="flex ml-auto text-white font-bold spacing-2 sm:pr-32 pr-4">
           <p className="flex flex-col relative peer h-full justify-center items-center self-center">
             How to play
             <svg
@@ -27,10 +27,12 @@ export default function Home() {
             </svg>
           </p>
 
-          <div className="absolute peer-hover:visible active:visible invisible border-solid border-2 p-2 sm:top-20 top-16 sm:right-12 right-0 sm:w-56 w-full text-sm rounded bg-gray-800 z-20">
-            Memorize the positions of the black tiles within 5 seconds, then you
-            have 10 seconds to click the memorized positions.
-          </div>
+          
+            <ul className='list-disc absolute peer-hover:visible active:visible invisible border-solid border-2 p-2 sm:top-20 top-16 sm:right-12 right-0 sm:w-80 w-full text-sm rounded bg-gray-800 z-20 tracking-wide'>
+              <li className='ml-4'>You have 5 Seconds to memorize the black tile positions</li>
+              <li className='ml-4'>Then 10 seconds to click original positions *Only 2 errors allowed!*</li>
+            </ul>
+          
         </div>
       </div>
       <Board />
