@@ -1,133 +1,158 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, use } from 'react'
 import CountdownBar from './CountdownBar'
 import GameStatus from './GameStatus'
 
-export default function Board() {
+export default function Board({ checked, gameStart, setGameStart }) {
   const [fiveXFive, setFiveXFive] = useState([
     {
       clicked: false,
       id: 0,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 1,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 2,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 3,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 4,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 5,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 6,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 7,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 8,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 9,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 10,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 11,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 12,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 13,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 14,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 15,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 16,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 17,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 18,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 19,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 20,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 21,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 22,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 23,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
     {
       id: 24,
       clicked: false,
       background: 'bg-white',
+      number: null,
     },
   ])
 
@@ -564,7 +589,7 @@ export default function Board() {
 
   const [answerArray, setAnswerArray] = useState()
 
-  const [gameStart, setGameStart] = useState(false)
+  
 
   const [preGame, setPreGame] = useState(false)
 
@@ -586,6 +611,8 @@ export default function Board() {
 
   const [reseting, setReseting] = useState(false)
 
+  const [hardArray, setHardArray] = useState([])
+
   const setGrids = [
     () => setFiveXFive(),
     () => setSixXSix(),
@@ -594,11 +621,30 @@ export default function Board() {
 
   const [gridIndex, setGridIndex] = useState(0)
 
+  const [testArray, setTestArray] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+  const base5x5Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      const temp = array[i]
+      array[i] = array[j]
+      array[j] = temp
+    }
+  }
+
   // sets click status and color on user click
   const handleClick = (id) => {
+    console.log('runs')
     const newArr = grids[gridIndex].map((item, index) => {
       if (item.id === id && !userAnswer.includes(id)) {
-        addAnswer(id)
+        if (checked) {
+          setUserAnswer((prevArray) => [...prevArray, item.number])
+        } else {
+          setUserAnswer((prevArray) => [...prevArray, id])
+        }
+
         return { ...item, clicked: !item.clicked, background: 'bg-black' }
       } else return item
     })
@@ -652,6 +698,7 @@ export default function Board() {
     setUserAnswer([])
     setWrongAnswers([])
     setCorrectAnswers([])
+    setHardArray([])
     setPercentage(100)
     setPreGame(true)
     setGameOver(false)
@@ -728,30 +775,84 @@ export default function Board() {
         : null
 
     setAnswerArray([...randoms])
-    const newArr = grids[gridIndex].map((item, index) => {
-      if (randoms.includes(item.id)) {
-        return { ...item, clicked: false, background: 'bg-black' }
-      } else return item
-    })
+    let i = 0
 
-    gridIndex === 0
-      ? setFiveXFive(newArr)
-      : gridIndex === 1
-      ? setSixXSix(newArr)
-      : gridIndex === 2
-      ? setSevenXSeven(newArr)
-      : null
+    if (checked) {
+      const newArr = grids[gridIndex].map((item, index) => {
+        if (randoms.includes(item.id)) {
+          i++
+
+          console.log(i)
+          return {
+            ...item,
+            clicked: false,
+            background: 'bg-black',
+            number: testArray[i - 1],
+          }
+        } else return item
+      })
+
+      gridIndex === 0
+        ? setFiveXFive(newArr)
+        : gridIndex === 1
+        ? setSixXSix(newArr)
+        : gridIndex === 2
+        ? setSevenXSeven(newArr)
+        : null
+    } else {
+      const newArr = grids[gridIndex].map((item, index) => {
+        if (randoms.includes(item.id)) {
+          return { ...item, clicked: false, background: 'bg-black' }
+        } else return item
+      })
+
+      gridIndex === 0
+        ? setFiveXFive(newArr)
+        : gridIndex === 1
+        ? setSixXSix(newArr)
+        : gridIndex === 2
+        ? setSevenXSeven(newArr)
+        : null
+    }
+
+    // gridIndex === 0
+    //   ? setFiveXFive(newArr)
+    //   : gridIndex === 1
+    //   ? setSixXSix(newArr)
+    //   : gridIndex === 2
+    //   ? setSevenXSeven(newArr)
+    //   : null
   }
 
-  const addAnswer = (id) => {
-    setUserAnswer((prevArray) => [...prevArray, id])
-  }
+  const handleHardClick = (id, number) => {
+    if (hardArray.length == 0) {
+      if (number == 1) {
+        const newArray = [number]
+        setHardArray(newArray)
+        const newArr = grids[gridIndex].map((item, index) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              background: 'transition bg-lime-600 ease-in-out 150ms',
+            }
+          } else return item
+        })
 
-  const checkAnswer = (id) => {
-    if (answerArray.includes(id) && !userAnswer.includes(id)) {
-      //correct stuff
-      setCorrectAnswers((prevArray) => [...prevArray, id])
+        gridIndex === 0
+          ? setFiveXFive(newArr)
+          : gridIndex === 1
+          ? setSixXSix(newArr)
+          : gridIndex === 2
+          ? setSevenXSeven(newArr)
+          : null
+      } else {
+        setGameOver(true)
+      }
+    }
 
+    if (hardArray[hardArray.length - 1] + 1 == number) {
+      const updatedArray = [...hardArray, number]
+      setHardArray(updatedArray)
       const newArr = grids[gridIndex].map((item, index) => {
         if (item.id === id) {
           return {
@@ -760,6 +861,7 @@ export default function Board() {
           }
         } else return item
       })
+
       gridIndex === 0
         ? setFiveXFive(newArr)
         : gridIndex === 1
@@ -768,34 +870,103 @@ export default function Board() {
         ? setSevenXSeven(newArr)
         : null
 
-      if (correctAnswers.length === answerArray.length - 1) {
+      if (hardArray.length == 10) {
         setGameWon(true)
       }
+    } else if (hardArray.length != 0) {
+      setGameOver(true)
+    }
+  }
 
-      return
-    } else if (!userAnswer.includes(id)) {
-      const newArr = grids[gridIndex].map((item, index) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            background: 'transition bg-red-600 ease-in-out 150ms',
+  const checkAnswer = (id, number) => {
+    //
+
+    //
+    if (checked) {
+      base5x5Array.forEach((item, index) => {
+        console.log(userAnswer)
+        if (userAnswer[index] != undefined) {
+          if (userAnswer[index] == item) {
+            setCorrectAnswers((prevArray) => [...prevArray, item])
+            const newArr = grids[gridIndex].map((item, index) => {
+              if (item.id === id) {
+                return {
+                  ...item,
+                  background: 'transition bg-lime-600 ease-in-out 150ms',
+                }
+              } else return item
+            })
+
+            gridIndex === 0
+              ? setFiveXFive(newArr)
+              : gridIndex === 1
+              ? setSixXSix(newArr)
+              : gridIndex === 2
+              ? setSevenXSeven(newArr)
+              : null
+
+            if (correctAnswers.length === testArray.length - 1) {
+              setGameWon(true)
+            }
+          } else {
+            setGameOver(true)
           }
-        } else return item
+        }
       })
-      gridIndex === 0
-        ? setFiveXFive(newArr)
-        : gridIndex === 1
-        ? setSixXSix(newArr)
-        : gridIndex === 2
-        ? setSevenXSeven(newArr)
-        : null
+    } else {
+      if (answerArray.includes(id) && !userAnswer.includes(id)) {
+        console.log(userAnswer)
+        //correct stuff
+        setCorrectAnswers((prevArray) => [...prevArray, id])
 
-      setWrongAnswers((prevArray) => [...prevArray, id])
-      if (wrongAnswers.length === 2) {
-        setGameOver(true)
+        //creates new array with highlighted correct answers
+        const newArr = grids[gridIndex].map((item, index) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              background: 'transition bg-lime-600 ease-in-out 150ms',
+            }
+          } else return item
+        })
+
+        //checks which grid to update
+        gridIndex === 0
+          ? setFiveXFive(newArr)
+          : gridIndex === 1
+          ? setSixXSix(newArr)
+          : gridIndex === 2
+          ? setSevenXSeven(newArr)
+          : null
+
+        if (correctAnswers.length === answerArray.length - 1) {
+          setGameWon(true)
+        }
+
+        return
+      } else if (!userAnswer.includes(id)) {
+        const newArr = grids[gridIndex].map((item, index) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              background: 'transition bg-red-600 ease-in-out 150ms',
+            }
+          } else return item
+        })
+        gridIndex === 0
+          ? setFiveXFive(newArr)
+          : gridIndex === 1
+          ? setSixXSix(newArr)
+          : gridIndex === 2
+          ? setSevenXSeven(newArr)
+          : null
+
+        setWrongAnswers((prevArray) => [...prevArray, id])
+        if (wrongAnswers.length === 2) {
+          setGameOver(true)
+          return
+        }
         return
       }
-      return
     }
   }
 
@@ -867,6 +1038,12 @@ export default function Board() {
         : null
     }
   }, [gameOver])
+
+  useEffect(() => {
+    shuffleArray(testArray)
+  }, [])
+
+  console.log(hardArray)
 
   return (
     <div>
@@ -961,19 +1138,22 @@ export default function Board() {
             }`}
           >
             {grids[gridIndex].map((item, index) => (
-
               <li
                 key={item.id}
                 className={`${item.background} ${
                   preGame || gameOver || gameWon ? 'disabled' : null
-                } h-full rounded`}
+                } h-full rounded text-4xl text-white text-center pt-[1.5rem] font-semibold `}
                 onClick={() => {
-                  handleClick(item.id)
-                  checkAnswer(item.id)
+                  if (checked) {
+                    handleHardClick(item.id, item.number)
+                  } else {
+                    handleClick(item.id)
+                    checkAnswer(item.id, item.number)
+                  }
                 }}
-              ></li>
-
-
+              >
+                {checked ? item.number : null}
+              </li>
             ))}
           </ul>
         </div>

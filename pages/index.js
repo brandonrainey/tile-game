@@ -1,8 +1,20 @@
 import Head from 'next/head'
 import react, { useState } from 'react'
 import Board from '../components/Board'
+import { ToggleSwitch } from 'flowbite-react'
 
 export default function Home() {
+
+  const [checked, setChecked] = useState(false)
+
+  const [gameStart, setGameStart] = useState(false)
+
+  function handleToggle() {
+    setChecked(!checked)
+  }
+
+  console.log(checked)
+
   return (
     <div>
       <Head>
@@ -13,6 +25,21 @@ export default function Home() {
         <h1 className="sm:text-3xl text-3xl font-bold text-white pt-3 headerFont sm:tracking-wider tracking-wide pl-4 font-header">
           Memory Game
         </h1>
+
+        <div className="flex items-center justify-center w-40 ml-auto">
+          <label for="toggleB" className="flex items-center cursor-pointer" checked={checked} onChange={handleToggle} >
+            <div className="relative">
+              <input type="checkbox" id="toggleB" className="sr-only" disabled={gameStart}/>
+
+              <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
+
+              <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+            </div>
+
+            <div className="ml-3 text-white font-medium">Hard Mode</div>
+          </label>
+        </div>
+
         <div className="flex ml-auto text-white font-bold spacing-2 sm:pr-32 pr-4  ">
           <p className="flex flex-col relative peer h-full justify-center items-center self-center bg-slate-700 px-2 rounded">
             How to play
@@ -41,7 +68,7 @@ export default function Home() {
           </ul>
         </div>
       </div>
-      <Board />
+      <Board checked={checked} gameStart={gameStart} setGameStart={setGameStart}/>
     </div>
   )
 }
