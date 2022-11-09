@@ -61,6 +61,12 @@ a {
   transition: width 5s linear !important;
 }
 
+.preGameTransitionHard {
+  justify-self: center;
+  align-self: center;
+  transition: width 10s linear !important;
+}
+
 .resetTransition {
   transition: none;
 }
@@ -68,6 +74,12 @@ a {
 input:checked ~ .dot {
   transform: translateX(100%);
   background-color: #48bb78;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 

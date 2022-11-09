@@ -589,8 +589,6 @@ export default function Board({ checked, gameStart, setGameStart }) {
 
   const [answerArray, setAnswerArray] = useState()
 
-  
-
   const [preGame, setPreGame] = useState(false)
 
   const [userAnswer, setUserAnswer] = useState([])
@@ -623,6 +621,16 @@ export default function Board({ checked, gameStart, setGameStart }) {
 
   const [testArray, setTestArray] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
+  const [hardLvl2Array, setHardLvl2Array] = useState([
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+  ])
+
+  const [hardLvl3Array, setHardLvl3Array] = useState([
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ])
+
+  const hardArrays = [testArray, hardLvl2Array, hardLvl3Array]
+
   const base5x5Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   const shuffleArray = (array) => {
@@ -636,7 +644,6 @@ export default function Board({ checked, gameStart, setGameStart }) {
 
   // sets click status and color on user click
   const handleClick = (id) => {
-    console.log('runs')
     const newArr = grids[gridIndex].map((item, index) => {
       if (item.id === id && !userAnswer.includes(id)) {
         if (checked) {
@@ -787,7 +794,7 @@ export default function Board({ checked, gameStart, setGameStart }) {
             ...item,
             clicked: false,
             background: 'bg-black',
-            number: testArray[i - 1],
+            number: hardArrays[gridIndex][i - 1],
           }
         } else return item
       })
@@ -973,23 +980,26 @@ export default function Board({ checked, gameStart, setGameStart }) {
   //on click of start, show board for 5 seconds then clear
   useEffect(() => {
     setPreGame(true)
+    const delay = checked ? 10000 : 5000
 
     const timer = setTimeout(() => {
       if (gameStart) {
         clearBoard()
         setPreGame(false)
       }
-    }, 5000)
+    }, delay)
 
     return () => clearTimeout(timer)
   }, [gameStart])
 
   //timer for start of game
   useEffect(() => {
+    const gameTime = checked ? 20000 : 10000
+
     if (!preGame && gameStart) {
       const timer = setTimeout(() => {
         setGameOver(true)
-      }, 10000)
+      }, gameTime)
 
       return () => clearTimeout(timer)
     }
@@ -1001,16 +1011,20 @@ export default function Board({ checked, gameStart, setGameStart }) {
       clearInterval(progressTimer.current)
     }
 
-    if (percentage >= 105) {
+    console.log(percentage)
+
+    if (percentage >= 102) {
       clearInterval(progressTimer.current)
     }
   }, [percentage])
 
   //increases progress bar
   useEffect(() => {
+    const increment = checked ? 1.28 : 2.625
+
     if (!preGame) {
       progressTimer.current = setInterval(() => {
-        setPercentage((percentage) => percentage + 2.625)
+        setPercentage((percentage) => percentage + increment)
       }, 250)
 
       return () => clearInterval(progressTimer.current)
@@ -1042,8 +1056,6 @@ export default function Board({ checked, gameStart, setGameStart }) {
   useEffect(() => {
     shuffleArray(testArray)
   }, [])
-
-  console.log(hardArray)
 
   return (
     <div>
@@ -1114,10 +1126,11 @@ export default function Board({ checked, gameStart, setGameStart }) {
         percentage={percentage}
         reseting={reseting}
         setReseting={setReseting}
+        checked={checked}
       />
 
       <main className="relative">
-        <div className="md:w-1/3 md:h-1/3   mx-auto py-6 aspect-square  w-full h-1/2 -mt-6">
+        <div className="lg:w-1/3 md:h-1/3   mx-auto py-6 aspect-square  w-full h-1/2 -mt-6">
           <ul
             className={`p-2  rounded-lg h-full grid gap-2 bg-stone-800 ${
               gridIndex === 0
@@ -1142,7 +1155,13 @@ export default function Board({ checked, gameStart, setGameStart }) {
                 key={item.id}
                 className={`${item.background} ${
                   preGame || gameOver || gameWon ? 'disabled' : null
-                } h-full rounded text-4xl text-white text-center pt-[1.5rem] font-semibold `}
+                } h-full rounded ${
+                  gridIndex == 0
+                    ? 'text-[7.3vw] md:text-[2.5vw]'
+                    : gridIndex == 1
+                    ? 'text-[5.9vw] md:text-[2.2vw]'
+                    : 'text-[4.9vw] md:text-[1.9vw]'
+                }  text-white text-center align-middle font-semibold prevent-select leading-loose`}
                 onClick={() => {
                   if (checked) {
                     handleHardClick(item.id, item.number)

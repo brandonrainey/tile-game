@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import react, { useState } from 'react'
 import Board from '../components/Board'
-import { ToggleSwitch } from 'flowbite-react'
+
 
 export default function Home() {
-
   const [checked, setChecked] = useState(false)
 
   const [gameStart, setGameStart] = useState(false)
@@ -13,23 +12,31 @@ export default function Home() {
     setChecked(!checked)
   }
 
-  console.log(checked)
-
   return (
     <div>
       <Head>
         <meta name="description" content="Tile Memory Game" />
         <title>Tile Memory Game</title>
       </Head>
-      <div className="w-full mx-auto px-2 sm:px-6 lg:px-8 h-16 bg-gray-800 flex">
-        <h1 className="sm:text-3xl text-3xl font-bold text-white pt-3 headerFont sm:tracking-wider tracking-wide pl-4 font-header">
+      <div className="w-full mx-auto px-2 sm:px-6 lg:px-8 min-h-16 bg-gray-800 flex">
+        <h1 className="sm:text-3xl text-2xl font-bold text-white pt-3 headerFont sm:tracking-wider tracking-wide sm:pl-4 font-header">
           Memory Game
         </h1>
 
         <div className="flex items-center justify-center w-40 ml-auto">
-          <label for="toggleB" className="flex items-center cursor-pointer" checked={checked} onChange={handleToggle} >
+          <label
+            htmlFor="toggleB"
+            className="flex items-center cursor-pointer"
+            checked={checked}
+            onChange={handleToggle}
+          >
             <div className="relative">
-              <input type="checkbox" id="toggleB" className="sr-only" disabled={gameStart}/>
+              <input
+                type="checkbox"
+                id="toggleB"
+                className="sr-only"
+                disabled={gameStart}
+              />
 
               <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
 
@@ -40,8 +47,8 @@ export default function Home() {
           </label>
         </div>
 
-        <div className="flex ml-auto text-white font-bold spacing-2 sm:pr-32 pr-4  ">
-          <p className="flex flex-col relative peer h-full justify-center items-center self-center bg-slate-700 px-2 rounded">
+        <div className="flex ml-auto text-white font-bold spacing-2 sm:pr-32   ">
+          <p className="flex flex-col relative peer h-full justify-center items-center self-center bg-slate-700 px-2 rounded text-center">
             How to play
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,10 +72,17 @@ export default function Home() {
               Then 10 seconds to click original positions *Only 2 errors
               allowed!*
             </li>
+            <li className="ml-4">
+              Attempt Hard Mode if you dare!
+            </li>
           </ul>
         </div>
       </div>
-      <Board checked={checked} gameStart={gameStart} setGameStart={setGameStart}/>
+      <Board
+        checked={checked}
+        gameStart={gameStart}
+        setGameStart={setGameStart}
+      />
     </div>
   )
 }

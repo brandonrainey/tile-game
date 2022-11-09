@@ -4,8 +4,8 @@ export default function CountdownBar({
   percentage,
   preGame,
   reseting,
+  checked,
 }) {
-  
   return (
     <div className="flex justify-center ">
       <div className="flex md:w-1/3 w-3/4 h-5 rounded mb-6 bg-gray-300">
@@ -14,7 +14,9 @@ export default function CountdownBar({
             reseting
               ? 'resetTransition'
               : preGame
-              ? 'preGameTransition'
+              ? checked
+                ? 'preGameTransitionHard'
+                : 'preGameTransition'
               : 'progressTransition'
           }`}
           style={{ width: `${percentage}%` }}
