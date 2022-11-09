@@ -711,6 +711,7 @@ export default function Board({ checked, gameStart, setGameStart }) {
     setGameOver(false)
     setGameWon(false)
     setGameStart(false)
+    
   }
 
   // creates array of 10 random numbers between 0-24
@@ -869,6 +870,8 @@ export default function Board({ checked, gameStart, setGameStart }) {
         } else return item
       })
 
+      console.log(hardArray.length)
+
       gridIndex === 0
         ? setFiveXFive(newArr)
         : gridIndex === 1
@@ -877,9 +880,22 @@ export default function Board({ checked, gameStart, setGameStart }) {
         ? setSevenXSeven(newArr)
         : null
 
-      if (hardArray.length == 10) {
+      if (hardArray.length == 9 && gridIndex == 0) {
         setGameWon(true)
       }
+
+      if (hardArray.length == 14 && gridIndex == 1) {
+        setGameWon(true)
+      }
+
+      if (hardArray.length == 19 && gridIndex == 2) {
+        setGameWon(true)
+      }
+
+
+
+
+
     } else if (hardArray.length != 0) {
       setGameOver(true)
     }
@@ -1011,7 +1027,7 @@ export default function Board({ checked, gameStart, setGameStart }) {
       clearInterval(progressTimer.current)
     }
 
-    console.log(percentage)
+    
 
     if (percentage >= 102) {
       clearInterval(progressTimer.current)
@@ -1054,8 +1070,11 @@ export default function Board({ checked, gameStart, setGameStart }) {
   }, [gameOver])
 
   useEffect(() => {
-    shuffleArray(testArray)
-  }, [])
+    
+    shuffleArray(hardArrays[gridIndex])
+  }, [reseting, gridIndex])
+
+  
 
   return (
     <div>
