@@ -1080,7 +1080,7 @@ export default function Board({ checked, gameStart, setGameStart }) {
     <div>
       <header className="bg-black-800 ">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <div className="flex mb-4 gap-8 justify-center sm:mt-8 mt-20">
+          <div className="flex mb-4 gap-8 justify-center sm:mt-8">
             <button
               type="submit"
               className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
@@ -1180,7 +1180,7 @@ export default function Board({ checked, gameStart, setGameStart }) {
                     : gridIndex == 1
                     ? 'text-[5.9vw] md:text-[2.2vw]'
                     : 'text-[4.9vw] md:text-[1.9vw]'
-                }  text-white text-center align-middle font-semibold prevent-select leading-loose`}
+                }  text-white text-center align-middle font-semibold prevent-select lg:leading-loose leading-[2.4em]`}
                 onClick={() => {
                   if (checked) {
                     handleHardClick(item.id, item.number)

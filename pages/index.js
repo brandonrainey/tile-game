@@ -64,7 +64,7 @@ export default function Home() {
             </svg>
           </p>
 
-          <ul className="list-disc absolute peer-hover:visible active:visible invisible border-solid border-2 p-2 sm:top-20 top-16 sm:right-12 right-0 sm:w-80 w-full text-sm rounded bg-gray-800 z-20 tracking-wide">
+          <ul className="list-disc absolute peer-hover:visible active:visible invisible border-solid border-2 p-2 lg:top-20 top-20 lg:right-12 right-0 lg:w-80 w-full text-sm rounded bg-gray-800 z-20 tracking-wide">
             <li className="ml-4">
               You have 5 Seconds to memorize the black tile positions
             </li>
