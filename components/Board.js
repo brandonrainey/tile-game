@@ -1180,7 +1180,7 @@ export default function Board({ checked, gameStart, setGameStart }) {
                     : gridIndex == 1
                     ? 'text-[5.9vw] md:text-[2.2vw]'
                     : 'text-[4.9vw] md:text-[1.9vw]'
-                }  text-white text-center align-middle font-semibold prevent-select lg:leading-loose leading-[2.4em]`}
+                }  text-white  font-semibold prevent-select flex items-center justify-center`}
                 onClick={() => {
                   if (checked) {
                     handleHardClick(item.id, item.number)
@@ -1190,7 +1190,10 @@ export default function Board({ checked, gameStart, setGameStart }) {
                   }
                 }}
               >
-                {checked ? item.number : null}
+                <p className=''>
+                  {checked ? item.number : null}
+                </p>
+                
               </li>
             ))}
           </ul>
