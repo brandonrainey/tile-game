@@ -1083,44 +1083,44 @@ export default function Board({ checked, gameStart, setGameStart }) {
           <div className="flex mb-4 gap-8 justify-center sm:mt-8">
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white tracking-wide bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
-                gridIndex == 0 ? 'shadow-md shadow-teal-300' : null
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border-2 border-indigo-600 text-sm font-medium rounded-md text-white tracking-wide  hover:bg-indigo-900 focus:outline-none shadow-lg ${
+                gridIndex == 0 ? 'bg-indigo-600' : null
               }`}
               onClick={() => setGridIndex(0)}
               disabled={gameStart ? true : false}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
-              Normal
+              Level 1
             </button>
 
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
-                gridIndex == 1 ? 'shadow-md shadow-teal-300' : null
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border-2 border-indigo-600 text-sm font-medium rounded-md text-white  hover:bg-indigo-900 focus:outline-none shadow-lg ${
+                gridIndex == 1 ? 'bg-indigo-600' : null
               }`}
               onClick={() => setGridIndex(1)}
               disabled={gameStart ? true : false}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
-              Hard
+              Level 2
             </button>
 
             <button
               type="submit"
-              className={`group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none  ${
-                gridIndex == 2 ? 'shadow-md shadow-teal-300' : null
+              className={`group relative w-1/8 flex justify-center py-2 px-4 border-2 border-indigo-600 text-sm font-medium rounded-md text-white  hover:bg-indigo-900 focus:outline-none shadow-lg ${
+                gridIndex == 2 ? 'bg-indigo-600' : null
               }`}
               onClick={() => setGridIndex(2)}
               disabled={gameStart ? true : false}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
-              Very Hard
+              Level 3
             </button>
           </div>
           <div className="flex justify-center gap-4">
             <button
               type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-700 hover:bg-red-800 focus:outline-none "
+              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-700 hover:bg-red-600 focus:outline-none tracking-wide shadow-lg"
               onClick={resetBoard}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3"></span>
@@ -1129,7 +1129,7 @@ export default function Board({ checked, gameStart, setGameStart }) {
 
             <button
               type="submit"
-              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-lime-700 hover:bg-lime-800 focus:outline-none "
+              className="group relative w-1/8 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-lime-700 hover:bg-lime-600 focus:outline-none tracking-wide shadow-lg"
               onClick={setupBoard}
               disabled={gameStart ? true : false}
             >
